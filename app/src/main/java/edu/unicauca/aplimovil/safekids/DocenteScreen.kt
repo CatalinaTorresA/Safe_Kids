@@ -40,50 +40,95 @@ fun DocenteScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(top = 50.dp)
                     .background(Color(0xFF8D8782), shape = RoundedCornerShape(16.dp))
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Docente",
+                    text = "Acudiente",
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.logo), // tu logo
+                    painter = painterResource(id = R.drawable.logo),
                     contentDescription = "Logo",
                     modifier = Modifier.size(50.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
-            // OPCIONES
-            listOf("Actividad", "Agenda").forEach { label ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                // BOTÓN ACTIVIDAD
+                Button(
+                    onClick = { /* Acción para Actividad */ },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
                     modifier = Modifier.padding(vertical = 8.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFF122379))
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(
-                        text = label,
-                        color = Color.Red,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 16.sp,
-                        textDecoration = TextDecoration.Underline
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(0xFF122379))
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Actividad",
+                            color = Color.Red,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 16.sp,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
+                }
+
+                // BOTÓN AGENDA
+                Button(
+                    onClick = { /* Acción para Agenda */ },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
+                    modifier = Modifier.padding(vertical = 8.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(0xFF122379))
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Agenda",
+                            color = Color.Red,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 16.sp,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+
+
+
 
             Spacer(modifier = Modifier.weight(1f)) // Empuja la barra inferior hacia abajo
             Row(
@@ -109,32 +154,32 @@ fun DocenteScreen(
                     }
                 }
 
-                // Botón Profile
-                Button(
-                    onClick = onProfileClick,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    contentPadding = PaddingValues(0.dp),
-                    elevation = ButtonDefaults.buttonElevation(0.dp),
-                    modifier = Modifier
-                        .weight(1f)
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Image(
-                            painter = painterResource(id = R.drawable.perfil),
-                            contentDescription = "Profile Pic",
-                            modifier = Modifier
-                                .size(40.dp)
-                                .clip(CircleShape)
-                        )
-                        Text(
-                            text = "Profile",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            textDecoration = TextDecoration.Underline
-                        )
+                    // Botón Profile
+                    Button(
+                        onClick = onProfileClick,
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                        contentPadding = PaddingValues(0.dp),
+                        elevation = ButtonDefaults.buttonElevation(0.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Image(
+                                painter = painterResource(id = R.drawable.perfil),
+                                contentDescription = "Profile Pic",
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .clip(CircleShape)
+                            )
+                            Text(
+                                text = "Profile",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        }
                     }
                 }
             }
         }
     }
-}

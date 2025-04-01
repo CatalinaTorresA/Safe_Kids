@@ -40,6 +40,7 @@ fun AcudientesScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(top = 50.dp)
                     .background(Color(0xFF8D8782), shape = RoundedCornerShape(16.dp))
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -60,35 +61,114 @@ fun AcudientesScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // OPCIONES
-            listOf("Actividad", "Dinero", "Agenda").forEach { label ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                // ACTIVIDAD
+                Button(
+                    onClick = {
+                        // Acción para "Actividad"
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
                     modifier = Modifier.padding(vertical = 8.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFF122379)) // azul oscuro
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(
-                        text = label,
-                        color = Color.Red,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 16.sp,
-                        textDecoration = TextDecoration.Underline
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(0xFF122379))
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Actividad",
+                            color = Color.Red,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 16.sp,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
+                }
+
+                // DINERO
+                Button(
+                    onClick = {
+                        // Acción para "Dinero"
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
+                    modifier = Modifier.padding(vertical = 8.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(0xFF122379))
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Dinero",
+                            color = Color.Red,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 16.sp,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
+                }
+
+                // AGENDA
+                Button(
+                    onClick = {
+                        // Acción para "Agenda"
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
+                    modifier = Modifier.padding(vertical = 8.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(0xFF122379))
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Agenda",
+                            color = Color.Red,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 16.sp,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
                 }
             }
+
+
 
             Spacer(modifier = Modifier.height(24.dp))
 
             // BARRA INFERIOR
             Spacer(modifier = Modifier.weight(1f)) // Empuja la barra de saldo hacia abajo
 
-            // SALDO (ahora está en la parte inferior)
+            // SALDO
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

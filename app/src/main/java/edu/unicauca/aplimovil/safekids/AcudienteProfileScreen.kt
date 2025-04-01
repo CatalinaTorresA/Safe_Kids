@@ -45,6 +45,7 @@ fun AcudienteProfileScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(top = 50.dp)
                     .background(Color(0xFF8D8782), shape = RoundedCornerShape(16.dp))
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,

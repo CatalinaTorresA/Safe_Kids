@@ -21,7 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AcudientesScreen() {
+fun AcudientesScreen(
+    onProfileClick: () -> Unit = {}
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -130,12 +132,14 @@ fun AcudientesScreen() {
                         .size(40.dp)
                         .clip(CircleShape)
                 )
-                Text(
-                    text = "Profile",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    textDecoration = TextDecoration.Underline
-                )
+                Button(onClick = onProfileClick) {
+                    Text(
+                        text = "Profile",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = TextDecoration.Underline
+                    )
+                }
             }
         }
     }

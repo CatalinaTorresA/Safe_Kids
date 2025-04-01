@@ -21,7 +21,9 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun DocenteScreen() {
+fun DocenteScreen(
+    onProfileClick: ()->Unit = {},
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -104,12 +106,16 @@ fun DocenteScreen() {
                         .size(40.dp)
                         .clip(CircleShape)
                 )
-                Text(
-                    text = "Profile",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    textDecoration = TextDecoration.Underline
-                )
+                Button(
+                    onClick = onProfileClick,
+                ) {
+                    Text(
+                        text = "Profile",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = TextDecoration.Underline
+                    )
+                }
             }
         }
     }

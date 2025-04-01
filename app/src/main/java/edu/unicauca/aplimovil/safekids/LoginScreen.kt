@@ -25,7 +25,10 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onTeacherClick: ()->Unit = {},
+    onGuardianClick: ()->Unit = {},
+) {
     // Campos de entrada
     var cedula by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -33,6 +36,8 @@ fun LoginScreen() {
     // Menú desplegable
     var expanded by remember { mutableStateOf(false) }
     var selectedRol by remember { mutableStateOf("Acudiente") }
+
+    var Docente: Boolean by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -126,6 +131,7 @@ fun LoginScreen() {
                                     onClick = {
                                         selectedRol = "Acudiente"
                                         expanded = false
+                                        Docente = false
                                     }
                                 )
                                 DropdownMenuItem(
@@ -133,6 +139,7 @@ fun LoginScreen() {
                                     onClick = {
                                         selectedRol = "Docente"
                                         expanded = false
+                                        Docente = true
                                     }
                                 )
                             }
@@ -182,7 +189,11 @@ fun LoginScreen() {
 
                     Button(
                         onClick = {
-                            // Aquí puedes hacer algo con los datos o navegar
+                            if (Docente) {
+                                onTeacherClick()
+                            } else {
+                                onGuardianClick()
+                            }
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                         shape = RoundedCornerShape(50),

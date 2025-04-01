@@ -22,7 +22,10 @@ import androidx.compose.ui.draw.clip
 
 
 @Composable
-fun AcudienteProfileScreen() {
+fun AcudienteProfileScreen(
+    onProfileClick: () -> Unit = {},
+    onHomeClick: () -> Unit = {}
+) {
     // Variables para los campos de texto
     val tipoAcudiente = "Abuelo"
     val nombre = "Pepito Alvarez"
@@ -164,9 +167,7 @@ fun AcudienteProfileScreen() {
             ) {
                 // Botón Home
                 Button(
-                    onClick = {
-                        // Acción para ir a Home
-                    },
+                    onClick = onHomeClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),
@@ -181,9 +182,7 @@ fun AcudienteProfileScreen() {
 
                 // Botón Profile
                 Button(
-                    onClick = {
-                        // Acción para ir a Perfil
-                    },
+                    onClick = onProfileClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),

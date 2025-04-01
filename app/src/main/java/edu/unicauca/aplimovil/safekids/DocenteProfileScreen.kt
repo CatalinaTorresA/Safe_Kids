@@ -22,7 +22,10 @@ import androidx.compose.ui.text.style.TextDecoration
 
 
 @Composable
-fun DocenteProfileScreen() {
+fun DocenteProfileScreen(
+    onProfileClick: () -> Unit = {},
+    onHomeClick: () -> Unit = {}
+) {
     // Variables para los campos de texto
     val tipoDocente = "Profesor"
     val nombre = "Pepito Alvarez"
@@ -172,9 +175,7 @@ fun DocenteProfileScreen() {
             ) {
                 // Botón Home
                 Button(
-                    onClick = {
-                        // Acción para ir a Home
-                    },
+                    onClick = onHomeClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),
@@ -189,9 +190,7 @@ fun DocenteProfileScreen() {
 
                 // Botón Profile
                 Button(
-                    onClick = {
-                        // Acción para ir a Perf,
-                    },
+                    onClick = onProfileClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),

@@ -15,16 +15,16 @@ fun AppNavigation(modifier: Modifier = Modifier){
             LoginScreen(onTeacherClick = {navController.navigate(Screens.DocenteScreen.name)}, onGuardianClick = {navController.navigate(Screens.AcudientesScreen.name)})
         }
         composable(route = Screens.DocenteScreen.name){
-            DocenteScreen(onProfileClick = {navController.navigate(Screens.DocenteProfileScreen.name)})
+            DocenteScreen(onProfileClick = {navController.navigate(Screens.DocenteProfileScreen.name)}, onHomeClick = {navController.navigate(Screens.DocenteScreen.name)})
         }
         composable(route = Screens.AcudientesScreen.name){
-            AcudientesScreen(onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)})
+            AcudientesScreen(onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)}, onHomeClick = {navController.navigate(Screens.AcudientesScreen.name)})
         }
         composable(route = Screens.AcudienteProfileScreen.name){
-            AcudienteProfileScreen()
+            AcudienteProfileScreen(onHomeClick = {navController.navigate(Screens.AcudientesScreen.name)}, onProfileClick = {navController.navigate(Screens.DocenteProfileScreen.name)})
         }
         composable(route = Screens.DocenteProfileScreen.name){
-            DocenteProfileScreen()
+            DocenteProfileScreen(onHomeClick = {navController.navigate(Screens.DocenteScreen.name)}, onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)})
         }
         composable(route = Screens.ActividadesScreen.name){
             ActividadScreen()

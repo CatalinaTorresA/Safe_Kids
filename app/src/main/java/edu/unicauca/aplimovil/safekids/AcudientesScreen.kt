@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun AcudientesScreen(
+    onHomeClick: () -> Unit = {},
     onProfileClick: () -> Unit = {}
 ) {
     Box(
@@ -51,7 +52,7 @@ fun AcudientesScreen(
                     fontWeight = FontWeight.Bold
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.logo), // tu logo
+                    painter = painterResource(id = R.drawable.logo),
                     contentDescription = "Logo",
                     modifier = Modifier.size(50.dp)
                 )
@@ -123,9 +124,7 @@ fun AcudientesScreen(
             ) {
                 // Botón Home
                 Button(
-                    onClick = {
-                        // Acción para ir a Home
-                    },
+                    onClick = onHomeClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),

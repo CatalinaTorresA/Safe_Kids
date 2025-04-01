@@ -162,23 +162,50 @@ fun AcudienteProfileScreen() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Red)
-                    Text("Home", color = Color.Red)
-                }
-                Image(
-                    painter = painterResource(id = R.drawable.perfil),
-                    contentDescription = "Profile Pic",
+                // Botón Home
+                Button(
+                    onClick = {
+                        // Acción para ir a Home
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
                     modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                )
-                Text(
-                    text = "Profile",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    textDecoration = TextDecoration.Underline
-                )
+                        .weight(1f)
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Red)
+                        Text("Home", color = Color.Red)
+                    }
+                }
+
+                // Botón Profile
+                Button(
+                    onClick = {
+                        // Acción para ir a Perfil
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painter = painterResource(id = R.drawable.perfil),
+                            contentDescription = "Profile Pic",
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape)
+                        )
+                        Text(
+                            text = "Profile",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
+                }
             }
         }
     }

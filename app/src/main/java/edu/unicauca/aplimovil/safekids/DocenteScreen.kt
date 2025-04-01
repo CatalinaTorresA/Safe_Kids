@@ -69,7 +69,7 @@ fun DocenteScreen(
                         modifier = Modifier
                             .size(50.dp)
                             .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFF122379)) // azul oscuro
+                            .background(Color(0xFF122379))
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Text(
@@ -85,8 +85,6 @@ fun DocenteScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Spacer(modifier = Modifier.weight(1f)) // Empuja la barra inferior hacia abajo
-
-            // BARRA INFERIOR
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -95,26 +93,47 @@ fun DocenteScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Red)
-                    Text("Home", color = Color.Red)
-                }
-                Image(
-                    painter = painterResource(id = R.drawable.perfil),
-                    contentDescription = "Profile Pic",
+                // Botón Home
+                Button(
+                    onClick = {
+                        // Acción para ir a Home
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
                     modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                )
+                        .weight(1f)
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Red)
+                        Text("Home", color = Color.Red)
+                    }
+                }
+
+                // Botón Profile
                 Button(
                     onClick = onProfileClick,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(0.dp),
+                    modifier = Modifier
+                        .weight(1f)
                 ) {
-                    Text(
-                        text = "Profile",
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        textDecoration = TextDecoration.Underline
-                    )
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painter = painterResource(id = R.drawable.perfil),
+                            contentDescription = "Profile Pic",
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape)
+                        )
+                        Text(
+                            text = "Profile",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
                 }
             }
         }

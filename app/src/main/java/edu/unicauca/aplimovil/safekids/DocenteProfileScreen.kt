@@ -3,28 +3,28 @@ package edu.unicauca.aplimovil.safekids
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextDecoration
 
 
 @Composable
-fun AcudienteProfileScreen() {
+fun DocenteProfileScreen() {
     // Variables para los campos de texto
-    val tipoAcudiente = "Abuelo"
+    val tipoDocente = "Profesor"
     val nombre = "Pepito Alvarez"
     val cedula = "1234"
 
@@ -48,9 +48,9 @@ fun AcudienteProfileScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Acudiente",
+                    text = "Docente",
                     color = Color.White,
-                    fontSize = 28.sp, // Aumento el tamaño de la fuente
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Image(
@@ -66,14 +66,14 @@ fun AcudienteProfileScreen() {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "Información",
-                    fontSize = 22.sp, // Aumento el tamaño de la fuente
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF8D8782)
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Tipo de acudiente (estático)
+                // Tipo de docente (estático)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -81,7 +81,7 @@ fun AcudienteProfileScreen() {
                         .background(Color(0xFFE6DDD6))
                         .padding(16.dp)
                 ) {
-                    Text(text = "Tipo de acudiente: $tipoAcudiente", color = Color.Black, fontSize = 18.sp)
+                    Text(text = "Tipo de docente: $tipoDocente", color = Color.Black, fontSize = 18.sp)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -113,19 +113,22 @@ fun AcudienteProfileScreen() {
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
-            // Estudiantes registrados
+            // Cursos registrados
             Text(
-                text = "Estudiantes registrados",
-                fontSize = 22.sp, // Aumento el tamaño de la fuente
+                text = "Cursos registrados",
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF8D8782)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Lista de estudiantes
+            // Lista de cursos
             Column {
-                listOf("Alumno 1", "Alumno 2").forEach { student ->
+                val courses = listOf("Algebra", "Biologia", "Etica")
+                val studentCount = listOf(4, 9, 11)
+
+                courses.forEachIndexed { index, course ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
@@ -141,12 +144,19 @@ fun AcudienteProfileScreen() {
                                 .background(Color(0xFF122379)) // azul oscuro
                         )
                         Spacer(modifier = Modifier.width(12.dp))
-                        Text(
-                            text = student,
-                            color = Color.White,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp // Aumento el tamaño de la fuente
-                        )
+                        Column {
+                            Text(
+                                text = course,
+                                color = Color.White,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 18.sp // Aumento el tamaño de la fuente
+                            )
+                            Text(
+                                text = "${studentCount[index]} Estudiantes",
+                                color = Color.White,
+                                fontSize = 14.sp
+                            )
+                        }
                     }
                 }
             }

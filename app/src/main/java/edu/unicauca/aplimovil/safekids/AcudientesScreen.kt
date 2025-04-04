@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun AcudientesScreen(
     onHomeClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {}
+    onProfileClick: () -> Unit = {},
+    onActividadClick: ()->Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -66,22 +67,10 @@ fun AcudientesScreen(
                     .fillMaxWidth()
                     .padding(start = 16.dp),
                 horizontalAlignment = Alignment.Start
-
-
-
-
-
-
-
-
-
-
             ) {
                 // ACTIVIDAD
                 Button(
-                    onClick = {
-                        // Acción para "Actividad"
-                    },
+                    onClick = onActividadClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),

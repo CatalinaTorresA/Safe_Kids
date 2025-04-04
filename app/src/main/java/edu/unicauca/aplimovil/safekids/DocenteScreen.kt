@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun DocenteScreen(
     onProfileClick: ()->Unit = {},
-    onHomeClick: ()->Unit = {}
+    onHomeClick: ()->Unit = {},
+    onActividadClick: ()->Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -69,7 +70,7 @@ fun DocenteScreen(
             ) {
                 // BOTÓN ACTIVIDAD
                 Button(
-                    onClick = { /* Acción para Actividad */ },
+                    onClick = onActividadClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),
@@ -125,9 +126,6 @@ fun DocenteScreen(
                     }
                 }
             }
-
-
-
 
 
 

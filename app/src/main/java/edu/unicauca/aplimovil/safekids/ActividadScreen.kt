@@ -28,7 +28,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 @Composable
-fun ActividadScreen() {
+fun ActividadScreen(
+    onHomeClick: () -> Unit = {},
+    onProfileClick: () -> Unit = {}
+) {
     // Lista de estudiantes
     val estudiantes = listOf("Pepito Perez", "Juanito Lopez", "Maria Gonzalez")
     // Estado para el desplegable
@@ -49,6 +52,7 @@ fun ActividadScreen() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(top = 50.dp)
                     .background(Color(0xFF122379), shape = RoundedCornerShape(16.dp))
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -172,9 +176,7 @@ fun ActividadScreen() {
             ) {
                 // Botón Home
                 Button(
-                    onClick = {
-                        // Acción para ir a Home
-                    },
+                    onClick = onHomeClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),
@@ -189,9 +191,7 @@ fun ActividadScreen() {
 
                 // Botón Profile
                 Button(
-                    onClick = {
-                        // Acción para ir a Perfil
-                    },
+                    onClick = onProfileClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),

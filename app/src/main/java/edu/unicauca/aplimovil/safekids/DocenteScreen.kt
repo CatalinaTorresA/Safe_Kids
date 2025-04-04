@@ -47,7 +47,7 @@ fun DocenteScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Acudiente",
+                    text = "Docente",
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -125,6 +125,16 @@ fun DocenteScreen(
                     }
                 }
             }
+
+
+
+
+
+
+
+
+
+
 
 
 

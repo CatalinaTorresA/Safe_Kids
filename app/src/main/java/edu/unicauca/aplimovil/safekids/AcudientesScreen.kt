@@ -66,6 +66,16 @@ fun AcudientesScreen(
                     .fillMaxWidth()
                     .padding(start = 16.dp),
                 horizontalAlignment = Alignment.Start
+
+
+
+
+
+
+
+
+
+
             ) {
                 // ACTIVIDAD
                 Button(

@@ -27,7 +27,8 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun DineroScreen(
-
+    onProfileClick: () -> Unit = {},
+    onHomeClick: () -> Unit = {}
 ) {
     var showDialog by remember { mutableStateOf(false) }
     var showBlockDialog by remember { mutableStateOf(false) }
@@ -162,7 +163,7 @@ fun DineroScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Button(
-                onClick = {  },
+                onClick = onHomeClick,
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 contentPadding = PaddingValues(0.dp),
                 elevation = ButtonDefaults.buttonElevation(0.dp),
@@ -175,7 +176,7 @@ fun DineroScreen(
             }
 
             Button(
-                onClick = {},
+                onClick = onProfileClick,
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 contentPadding = PaddingValues(0.dp),
                 elevation = ButtonDefaults.buttonElevation(0.dp),

@@ -24,7 +24,9 @@ import androidx.compose.ui.unit.sp
 fun AcudientesScreen(
     onHomeClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
-    onActividadClick: ()->Unit = {}
+    onActividadClick: ()->Unit = {},
+    onDineroClick: ()->Unit = {}
+
 ) {
     Box(
         modifier = Modifier
@@ -99,9 +101,7 @@ fun AcudientesScreen(
 
                 // DINERO
                 Button(
-                    onClick = {
-                        // Acción para "Dinero"
-                    },
+                    onClick = onDineroClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),

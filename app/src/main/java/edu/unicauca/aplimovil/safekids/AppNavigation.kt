@@ -5,6 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier){
@@ -12,20 +14,22 @@ fun AppNavigation(modifier: Modifier = Modifier){
     NavHost(navController = navController,
         startDestination = Screens.LoginScreen.name) {
         composable(route = Screens.LoginScreen.name){
-            LoginScreen(onTeacherClick = {navController.navigate(Screens.DocenteScreen.name)}, onGuardianClick = {navController.navigate(Screens.AcudientesScreen.name)})
+            LoginScreen(onTeacherClick = {navController.navigate(Screens.DocenteScreen.name)},
+                onGuardianClick = {navController.navigate(Screens.AcudientesScreen.name)})
         }
         composable(route = Screens.DocenteScreen.name){
             DocenteScreen(
                 onProfileClick = {navController.navigate(Screens.DocenteProfileScreen.name)},
                 onHomeClick = {navController.navigate(Screens.DocenteScreen.name)},
-                onActividadClick = {navController.navigate(Screens.ActividadScreen.name)}
+                onActividadClick = {navController.navigate(Screens.ActividadDocenteScreen.name)}
             )
         }
         composable(route = Screens.AcudientesScreen.name){
             AcudientesScreen(
                 onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)},
                 onHomeClick = {navController.navigate(Screens.AcudientesScreen.name)},
-                onActividadClick = {navController.navigate(Screens.ActividadScreen.name)}
+                onActividadClick = {navController.navigate(Screens.ActividadAcudienteScreen.name)},
+                onDineroClick = {navController.navigate(Screens.DineroScreen.name)}
             )
         }
         composable(route = Screens.AcudienteProfileScreen.name){
@@ -40,9 +44,21 @@ fun AppNavigation(modifier: Modifier = Modifier){
                 onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)}
             )
         }
-        composable(route = Screens.ActividadScreen.name){
+        composable(route = Screens.ActividadDocenteScreen.name){
             ActividadScreen(
                 onHomeClick = {navController.navigate(Screens.DocenteScreen.name)},
+                onProfileClick = {navController.navigate(Screens.DocenteProfileScreen.name)}
+            )
+        }
+        composable(route = Screens.ActividadAcudienteScreen.name){
+            ActividadScreen(
+                onHomeClick = {navController.navigate(Screens.AcudientesScreen.name)},
+                onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)}
+            )
+        }
+        composable(route = Screens.DineroScreen.name){
+            DineroScreen(
+                onHomeClick = {navController.navigate(Screens.AcudientesScreen.name)},
                 onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)}
             )
         }
@@ -57,5 +73,7 @@ enum class Screens(){
     AcudientesScreen,
     AcudienteProfileScreen,
     DocenteProfileScreen,
-    ActividadScreen
+    ActividadDocenteScreen,
+    ActividadAcudienteScreen,
+    DineroScreen
 }

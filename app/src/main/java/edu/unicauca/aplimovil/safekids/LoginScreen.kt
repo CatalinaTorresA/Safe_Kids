@@ -1,6 +1,7 @@
 package edu.unicauca.aplimovil.safekids
 
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,13 +23,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
+import edu.unicauca.aplimovil.safekids.ui.model.ItemEntryViewModel
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun LoginScreen(
     onTeacherClick: ()->Unit = {},
     onGuardianClick: ()->Unit = {},
+    onSaveClick: ()->Unit = {},
+    viewModel: ItemEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
+    val coroutineScope = rememberCoroutineScope()
     // Campos de entrada
     var cedula by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -151,8 +160,12 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
-                        value = cedula,
-                        onValueChange = { cedula = it },
+                        value = viewModel.itemUiState.itemDetails.name,
+                        onValueChange = { newValue ->
+                            viewModel.updateUiState(
+                                viewModel.itemUiState.itemDetails.copy(name = newValue)
+                            )
+                        },
                         label = {
                             Text("Cedula", color = Color.Black, fontWeight = FontWeight.Bold)
                         },
@@ -170,8 +183,12 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
-                        value = password,
-                        onValueChange = { password = it },
+                        value = viewModel.itemUiState.itemDetails.price,
+                        onValueChange = { newValue ->
+                            viewModel.updateUiState(
+                                viewModel.itemUiState.itemDetails.copy(price = newValue)
+                            )
+                        },
                         label = {
                             Text("Password", color = Color.Black, fontWeight = FontWeight.Bold)
                         },
@@ -191,6 +208,10 @@ fun LoginScreen(
 
                     Button(
                         onClick = {
+                            coroutineScope.launch {
+                                viewModel.saveItem()
+                                Log.d("check1", "itemsaved1")
+                            }
                             if (Docente) {
                                 onTeacherClick()
                             } else {
@@ -210,3 +231,4 @@ fun LoginScreen(
         }
     }
 }
+

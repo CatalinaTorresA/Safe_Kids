@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
-import edu.unicauca.aplimovil.safekids.ui.model.ItemEntryViewModel
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
 
 
@@ -35,7 +35,7 @@ fun LoginScreen(
     onTeacherClick: ()->Unit = {},
     onGuardianClick: ()->Unit = {},
     onSaveClick: ()->Unit = {},
-    viewModel: ItemEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: LoginViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
     // Campos de entrada
@@ -160,10 +160,10 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
-                        value = viewModel.itemUiState.itemDetails.name,
+                        value = viewModel.loginUiState.details.username,
                         onValueChange = { newValue ->
                             viewModel.updateUiState(
-                                viewModel.itemUiState.itemDetails.copy(name = newValue)
+                                viewModel.loginUiState.details.copy(username = newValue)
                             )
                         },
                         label = {
@@ -183,10 +183,10 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
-                        value = viewModel.itemUiState.itemDetails.price,
+                        value = viewModel.loginUiState.details.password,
                         onValueChange = { newValue ->
                             viewModel.updateUiState(
-                                viewModel.itemUiState.itemDetails.copy(price = newValue)
+                                viewModel.loginUiState.details.copy(password = newValue)
                             )
                         },
                         label = {
@@ -209,13 +209,19 @@ fun LoginScreen(
                     Button(
                         onClick = {
                             coroutineScope.launch {
-                                viewModel.saveItem()
-                                Log.d("check1", "itemsaved1")
-                            }
-                            if (Docente) {
-                                onTeacherClick()
-                            } else {
-                                onGuardianClick()
+                                if (Docente) {
+                                    val result = viewModel.attemptTeacherLogin()
+                                    if (result != null) {
+                                        onTeacherClick()
+                                    }
+                                    Log.d("check1a", "itemsaved1")
+                                } else {
+                                    val result = viewModel.attemptGuardianLogin()
+                                    if (result != null) {
+                                        onGuardianClick()
+                                    }
+                                    Log.d("check1b", "itemsaved1")
+                                }
                             }
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Red),

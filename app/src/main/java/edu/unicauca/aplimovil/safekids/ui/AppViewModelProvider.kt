@@ -2,12 +2,12 @@ package edu.unicauca.aplimovil.safekids.ui
 
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import edu.unicauca.aplimovil.safekids.InventoryApplication
-import edu.unicauca.aplimovil.safekids.ui.model.ItemEntryViewModel
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.ItemEntryViewModel
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.LoginViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -17,6 +17,9 @@ object AppViewModelProvider {
         // Initializer for ItemEntryViewModel
         initializer {
             ItemEntryViewModel(inventoryApplication().container.itemsRepository)
+        }
+        initializer {
+            LoginViewModel(inventoryApplication().container.guardiansRepository,inventoryApplication().container.teachersRepository)
         }
 
     }

@@ -8,10 +8,28 @@ import androidx.room.RoomDatabase
 /**
  * Database class with a singleton Instance object.
  */
-@Database(entities = [Item::class], version = 1, exportSchema = false)
+@Database(
+    entities = [
+        Item::class,
+        Teacher::class,
+        Course::class,
+        Guardian::class,
+        Student::class,
+        StudentGuardian::class,
+        StudentCourse::class
+    ],
+    version = 2,
+    exportSchema = false
+)
 abstract class InventoryDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao
+    abstract fun teacherDao(): TeacherDao
+    abstract fun courseDao(): CourseDao
+    abstract fun guardianDao(): GuardianDao
+    abstract fun studentDao(): StudentDao
+    abstract fun studentGuardianDao(): StudentGuardianDao
+    abstract fun studentCourseDao(): StudentCourseDao
 
     companion object {
         @Volatile

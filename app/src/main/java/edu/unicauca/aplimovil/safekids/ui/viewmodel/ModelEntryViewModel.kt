@@ -1,4 +1,4 @@
-package edu.unicauca.aplimovil.safekids.ui.model
+package edu.unicauca.aplimovil.safekids.ui.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.getValue

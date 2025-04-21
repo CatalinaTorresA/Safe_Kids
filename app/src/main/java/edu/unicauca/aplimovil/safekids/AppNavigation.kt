@@ -14,8 +14,11 @@ fun AppNavigation(modifier: Modifier = Modifier){
     NavHost(navController = navController,
         startDestination = Screens.LoginScreen.name) {
         composable(route = Screens.LoginScreen.name){
-            LoginScreen(onTeacherClick = {navController.navigate(Screens.DocenteScreen.name)},
-                onGuardianClick = {navController.navigate(Screens.AcudientesScreen.name)})
+            LoginScreen(
+                onTeacherClick = {navController.navigate(Screens.DocenteScreen.name)},
+                onGuardianClick = {navController.navigate(Screens.AcudientesScreen.name)},
+                onDescriptionClick = {navController.navigate(Screens.DescriptionScreen.name)}
+            )
         }
         composable(route = Screens.DocenteScreen.name){
             DocenteScreen(
@@ -62,6 +65,9 @@ fun AppNavigation(modifier: Modifier = Modifier){
                 onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)}
             )
         }
+        composable(route = Screens.DescriptionScreen.name){
+            DescriptionScreen()
+        }
     }
 
 }
@@ -69,6 +75,7 @@ fun AppNavigation(modifier: Modifier = Modifier){
 
 enum class Screens(){
     LoginScreen,
+    DescriptionScreen,
     DocenteScreen,
     AcudientesScreen,
     AcudienteProfileScreen,

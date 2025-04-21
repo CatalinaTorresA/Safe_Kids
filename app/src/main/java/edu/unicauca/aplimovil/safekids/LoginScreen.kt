@@ -35,6 +35,7 @@ fun LoginScreen(
     onTeacherClick: ()->Unit = {},
     onGuardianClick: ()->Unit = {},
     onSaveClick: ()->Unit = {},
+    onDescriptionClick: ()->Unit = {},
     viewModel: LoginViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -233,6 +234,19 @@ fun LoginScreen(
                         Text(text = "Login", color = Color.White)
                     }
                 }
+            }
+
+            Spacer(modifier = Modifier.height(100.dp))
+            //Boton para ir a la pantalla de descripcion
+            Button(
+                onClick = onDescriptionClick,
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF122379)),
+                shape = RoundedCornerShape(50),
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(48.dp)
+            ) {
+                Text(text = "Description", color = Color.White)
             }
         }
     }

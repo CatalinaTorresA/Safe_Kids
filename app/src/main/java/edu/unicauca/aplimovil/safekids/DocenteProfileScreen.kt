@@ -1,5 +1,6 @@
 package edu.unicauca.aplimovil.safekids
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,17 +20,35 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.ProfileViewModel
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun DocenteProfileScreen(
     onProfileClick: () -> Unit = {},
-    onHomeClick: () -> Unit = {}
+    onHomeClick: () -> Unit = {},
+    viewModel: ProfileViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    // Variables para los campos de texto
+    val coroutineScope = rememberCoroutineScope()
     val tipoDocente = "Profesor"
-    val nombre = "Pepito Alvarez"
-    val cedula = "1234"
+
+// Variable para almacenar el resultado
+    var nombre by remember { mutableStateOf<String?>(null) }
+    var cedula by remember { mutableStateOf<String?>(null) }
+
+    // Ejecutar la corrutina cuando la composición se monta
+    LaunchedEffect(Unit) {
+        //Log.d("ProfileScreen", "Current userId: ${viewModel.userId}")
+        // Aquí llamas a la función suspensiva y guardas el resultado
+        val teacher = viewModel.loadTeacher()
+        teacher?.let {
+            nombre = it.name
+            cedula = it.id
+        }
+    }
 
     Box(
         modifier = Modifier

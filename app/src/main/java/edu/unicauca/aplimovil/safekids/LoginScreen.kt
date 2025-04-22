@@ -32,8 +32,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
-    onTeacherClick: ()->Unit = {},
-    onGuardianClick: ()->Unit = {},
+    onTeacherClick: (String)->Unit = {},
+    onGuardianClick: (String)->Unit = {},
     onSaveClick: ()->Unit = {},
     onDescriptionClick: ()->Unit = {},
     viewModel: LoginViewModel = viewModel(factory = AppViewModelProvider.Factory)
@@ -161,10 +161,10 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
-                        value = viewModel.loginUiState.details.username,
+                        value = viewModel.loginUiState.details.id,
                         onValueChange = { newValue ->
                             viewModel.updateUiState(
-                                viewModel.loginUiState.details.copy(username = newValue)
+                                viewModel.loginUiState.details.copy(id = newValue)
                             )
                         },
                         label = {
@@ -213,18 +213,20 @@ fun LoginScreen(
                                 if (Docente) {
                                     val result = viewModel.attemptTeacherLogin()
                                     if (result != null) {
-                                        onTeacherClick()
+                                        onTeacherClick(result.teacher_id)
+                                    } else {
+                                        Log.d("check1a", "Login failed for Teacher")
                                     }
-                                    Log.d("check1a", "itemsaved1")
                                 } else {
                                     val result = viewModel.attemptGuardianLogin()
                                     if (result != null) {
-                                        onGuardianClick()
+                                        onGuardianClick(result.guardian_id)
+                                        Log.d("check1b", "Login failed for Guardian")
                                     }
-                                    Log.d("check1b", "itemsaved1")
                                 }
                             }
-                        },
+                        }
+                        ,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                         shape = RoundedCornerShape(50),
                         modifier = Modifier

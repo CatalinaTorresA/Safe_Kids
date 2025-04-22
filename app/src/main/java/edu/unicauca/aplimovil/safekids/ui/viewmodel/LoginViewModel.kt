@@ -26,7 +26,7 @@ class LoginViewModel(
     }
 
     private fun validateInput(details: LoginDetails): Boolean {
-        return details.username.isNotBlank() && details.password.isNotBlank()
+        return details.id.isNotBlank() && details.password.isNotBlank()
     }
 
     /**
@@ -34,22 +34,22 @@ class LoginViewModel(
      * @return Par (tipoUsuario, objeto) si es válido; si no, devuelve null.
      */
     suspend fun attemptGuardianLogin(): Guardian? {
-        val username = loginUiState.details.username
+        val id = loginUiState.details.id
         val password = loginUiState.details.password
 
         if (!validateInput(loginUiState.details)) return null
 
-        val guardian = guardiansRepository.getGuardianByName(username).firstOrNull()
+        val guardian = guardiansRepository.getGuardianStream(id).firstOrNull()
         return if (guardian != null && guardian.password == password) guardian else null
     }
 
     suspend fun attemptTeacherLogin(): Teacher? {
-        val username = loginUiState.details.username
+        val id = loginUiState.details.id
         val password = loginUiState.details.password
 
         if (!validateInput(loginUiState.details)) return null
 
-        val teacher = teachersRepository.getTeacherByName(username).firstOrNull()
+        val teacher = teachersRepository.getTeacherStream(id).firstOrNull()
         return if (teacher != null && teacher.password == password) teacher else null
     }
 
@@ -61,6 +61,6 @@ data class LoginUiState(
 )
 
 data class LoginDetails(
-    val username: String = "",
+    val id: String = "",
     val password: String = ""
 )

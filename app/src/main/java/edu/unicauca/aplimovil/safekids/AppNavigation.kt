@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.ProfileViewModel
 import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
 
 @Composable
@@ -14,9 +15,16 @@ fun AppNavigation(modifier: Modifier = Modifier){
     NavHost(navController = navController,
         startDestination = Screens.LoginScreen.name) {
         composable(route = Screens.LoginScreen.name){
+            val profileViewModel: ProfileViewModel = viewModel(factory = AppViewModelProvider.Factory)
             LoginScreen(
-                onTeacherClick = {navController.navigate(Screens.DocenteScreen.name)},
-                onGuardianClick = {navController.navigate(Screens.AcudientesScreen.name)},
+                onTeacherClick = { id ->
+                    profileViewModel.updateUserId(id)
+                    navController.navigate(Screens.DocenteScreen.name)
+                },
+                onGuardianClick = { id ->
+                    profileViewModel.updateUserId(id)
+                    navController.navigate(Screens.AcudientesScreen.name)
+                },
                 onDescriptionClick = {navController.navigate(Screens.DescriptionScreen.name)}
             )
         }

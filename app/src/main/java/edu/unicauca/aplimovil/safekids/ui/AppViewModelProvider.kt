@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import edu.unicauca.aplimovil.safekids.InventoryApplication
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.ItemEntryViewModel
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.LoginViewModel
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.ProfileViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -20,6 +21,9 @@ object AppViewModelProvider {
         }
         initializer {
             LoginViewModel(inventoryApplication().container.guardiansRepository,inventoryApplication().container.teachersRepository)
+        }
+        initializer {
+            ProfileViewModel(inventoryApplication().container.guardiansRepository,inventoryApplication().container.teachersRepository)
         }
 
     }

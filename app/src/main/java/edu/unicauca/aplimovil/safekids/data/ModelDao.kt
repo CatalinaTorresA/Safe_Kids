@@ -40,7 +40,7 @@ interface TeacherDao {
     suspend fun delete(teacher: Teacher)
 
     @Query("SELECT * FROM Teacher WHERE teacher_id = :id")
-    fun getTeacher(id: String): Flow<Teacher>
+    fun getTeacher(id: String): Flow<Teacher?>
 
     @Query("SELECT * FROM Teacher ORDER BY name ASC")
     fun getAllTeachers(): Flow<List<Teacher>>
@@ -79,12 +79,12 @@ interface GuardianDao {
     suspend fun delete(guardian: Guardian)
 
     @Query("SELECT * FROM Guardian WHERE guardian_id = :id")
-    fun getGuardian(id: String): Flow<Guardian>
+    fun getGuardian(id: String): Flow<Guardian?>
 
     @Query("SELECT * FROM Guardian ORDER BY name ASC")
     fun getAllGuardians(): Flow<List<Guardian>>
 
-    @Query("SELECT * FROM guardian WHERE name = :name")
+    @Query("SELECT * FROM Guardian WHERE name = :name")
     fun getGuardianByName(name: String): Flow<Guardian?>
 }
 

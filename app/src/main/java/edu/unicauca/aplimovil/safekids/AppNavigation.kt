@@ -38,13 +38,13 @@ fun AppNavigation(modifier: Modifier = Modifier){
         composable(route = Screens.AcudienteProfileScreen.name){
             AcudienteProfileScreen(
                 onHomeClick = {navController.navigate(Screens.AcudientesScreen.name)},
-                onProfileClick = {navController.navigate(Screens.DocenteProfileScreen.name)}
+                onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)}
             )
         }
         composable(route = Screens.DocenteProfileScreen.name){
             DocenteProfileScreen(
                 onHomeClick = {navController.navigate(Screens.DocenteScreen.name)},
-                onProfileClick = {navController.navigate(Screens.AcudienteProfileScreen.name)}
+                onProfileClick = {navController.navigate(Screens.DocenteProfileScreen.name)}
             )
         }
         composable(route = Screens.ActividadDocenteScreen.name){

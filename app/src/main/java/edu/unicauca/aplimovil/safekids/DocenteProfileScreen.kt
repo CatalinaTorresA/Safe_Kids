@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
@@ -22,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.CourseUiState
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.ProfileViewModel
 import kotlinx.coroutines.launch
 
@@ -35,14 +38,10 @@ fun DocenteProfileScreen(
     val coroutineScope = rememberCoroutineScope()
     val tipoDocente = "Profesor"
 
-// Variable para almacenar el resultado
     var nombre by remember { mutableStateOf<String?>(null) }
     var cedula by remember { mutableStateOf<String?>(null) }
 
-    // Ejecutar la corrutina cuando la composición se monta
     LaunchedEffect(Unit) {
-        //Log.d("ProfileScreen", "Current userId: ${viewModel.userId}")
-        // Aquí llamas a la función suspensiva y guardas el resultado
         val teacher = viewModel.loadTeacher()
         teacher?.let {
             nombre = it.name
@@ -53,14 +52,13 @@ fun DocenteProfileScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFE6DDD6)) // fondo beige claro
+            .background(Color(0xFFE6DDD6))
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            // ENCABEZADO
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -77,7 +75,7 @@ fun DocenteProfileScreen(
                     fontWeight = FontWeight.Bold
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.logo), // tu logo
+                    painter = painterResource(id = R.drawable.logo),
                     contentDescription = "Logo",
                     modifier = Modifier.size(50.dp)
                 )
@@ -85,7 +83,6 @@ fun DocenteProfileScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Sección de Información
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "Información",
@@ -96,7 +93,6 @@ fun DocenteProfileScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Tipo de docente (estático)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -109,7 +105,6 @@ fun DocenteProfileScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Nombre (estático)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -122,7 +117,6 @@ fun DocenteProfileScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Cédula (estático)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -136,7 +130,6 @@ fun DocenteProfileScreen(
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
-            // Cursos registrados
             Text(
                 text = "Cursos registrados",
                 fontSize = 22.sp,
@@ -146,45 +139,12 @@ fun DocenteProfileScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Lista de cursos
-            Column {
-                val courses = listOf("Algebra", "Biologia", "Etica")
-                val studentCount = listOf(4, 9, 11)
+            // Composable extraído para la lista de cursos
+            val courses by viewModel.cursos.collectAsState()
+            CourseList(courses)
 
-                courses.forEachIndexed { index, course ->
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .background(Color(0xFF8D8782), shape = RoundedCornerShape(8.dp))
-                            .padding(12.dp)
-                    ) {
-                        // Cuadro de color
-                        Box(
-                            modifier = Modifier
-                                .size(60.dp) // Aumentamos el tamaño
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(Color(0xFF122379)) // azul oscuro
-                        )
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Column {
-                            Text(
-                                text = course,
-                                color = Color.White,
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 18.sp // Aumento el tamaño de la fuente
-                            )
-                            Text(
-                                text = "${studentCount[index]} Estudiantes",
-                                color = Color.White,
-                                fontSize = 14.sp
-                            )
-                        }
-                    }
-                }
-            }
+            Spacer(modifier = Modifier.weight(1f))
 
-            Spacer(modifier = Modifier.weight(1f)) // Empuja la barra inferior hacia abajo
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -193,14 +153,12 @@ fun DocenteProfileScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Botón Home
                 Button(
                     onClick = onHomeClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),
-                    modifier = Modifier
-                        .weight(1f)
+                    modifier = Modifier.weight(1f)
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Red)
@@ -208,14 +166,12 @@ fun DocenteProfileScreen(
                     }
                 }
 
-                // Botón Profile
                 Button(
                     onClick = onProfileClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(0.dp),
-                    modifier = Modifier
-                        .weight(1f)
+                    modifier = Modifier.weight(1f)
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Image(
@@ -237,3 +193,46 @@ fun DocenteProfileScreen(
         }
     }
 }
+
+@Composable
+fun CourseList(cursos: List<CourseUiState>) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.7f)
+            .padding(horizontal = 12.dp)
+    ) {
+        items(cursos) { curso ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .background(Color(0xFF8D8782), shape = RoundedCornerShape(8.dp))
+                    .padding(12.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(60.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color(0xFF122379))
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Column {
+                    Text(
+                        text = curso.name,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 18.sp
+                    )
+                    Text(
+                        text = "${curso.students} Estudiantes",
+                        color = Color.White,
+                        fontSize = 14.sp
+                    )
+                }
+            }
+        }
+    }
+}
+
+

@@ -64,4 +64,8 @@ class OfflineStudentCoursesRepository(private val studentCourseDao: StudentCours
         studentCourseDao.getStudentsOfCourse(courseId)
     override suspend fun insertStudentCourse(relation: StudentCourse) = studentCourseDao.insert(relation)
     override suspend fun deleteStudentCourse(relation: StudentCourse) = studentCourseDao.delete(relation)
+    override fun getCourseNamesByTeacher(teacherId: String): Flow<List<String>> =
+        studentCourseDao.getCourseNamesByTeacher(teacherId)
+    override fun countStudentsByCourseName(courseName: String): Flow<Int> =
+        studentCourseDao.countStudentsByCourseName(courseName)
 }

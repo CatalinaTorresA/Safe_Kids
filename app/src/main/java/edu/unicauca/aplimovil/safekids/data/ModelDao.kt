@@ -134,4 +134,20 @@ interface StudentCourseDao {
 
     @Query("SELECT * FROM Student_Course WHERE course_id = :courseId")
     fun getStudentsOfCourse(courseId: Int): Flow<List<StudentCourse>>
+
+    @Query("SELECT name FROM Course WHERE teacher_id = :teacherId ORDER BY name ASC")
+    fun getCourseNamesByTeacher(teacherId: String): Flow<List<String>>
+
+    @Query("""
+    SELECT COUNT(*) 
+    FROM Student_Course 
+    WHERE course_id = (
+        SELECT course_id 
+        FROM Course 
+        WHERE name = :courseName
+    )
+""")
+    fun countStudentsByCourseName(courseName: String): Flow<Int>
+
+
 }

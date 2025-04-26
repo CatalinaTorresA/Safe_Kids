@@ -80,5 +80,7 @@ interface StudentCoursesRepository {
     fun getStudentsOfCourse(courseId: Int): Flow<List<StudentCourse>>
     suspend fun insertStudentCourse(relation: StudentCourse)
     suspend fun deleteStudentCourse(relation: StudentCourse)
+    fun getCourseNamesByTeacher(teacherId: String): Flow<List<String>>
+    fun countStudentsByCourseName(courseName: String): Flow<Int>
 }
 

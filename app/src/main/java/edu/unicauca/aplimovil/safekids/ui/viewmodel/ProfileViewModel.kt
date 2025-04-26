@@ -5,20 +5,39 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import edu.unicauca.aplimovil.safekids.data.Guardian
 import edu.unicauca.aplimovil.safekids.data.GuardiansRepository
 import edu.unicauca.aplimovil.safekids.data.Teacher
 import edu.unicauca.aplimovil.safekids.data.TeachersRepository
+import edu.unicauca.aplimovil.safekids.data.StudentCoursesRepository
 import kotlinx.coroutines.flow.firstOrNull
 import edu.unicauca.aplimovil.safekids.ui.UserSession
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val guardiansRepository: GuardiansRepository,
-    private val teachersRepository: TeachersRepository
+    private val teachersRepository: TeachersRepository,
+    private val studentCoursesRepository: StudentCoursesRepository
 ) : ViewModel() {
 
     var profileUiState by mutableStateOf(ProfileUiState())
         private set
+
+    private val _cursos = MutableStateFlow<List<CourseUiState>>(emptyList())
+    val cursos: StateFlow<List<CourseUiState>> = _cursos
+
+    init {
+        // Llama la función dentro de una corrutina
+        viewModelScope.launch {
+            val result = loadCourses()
+            _cursos.value = result
+            Log.d("ProfileViewModel", "updating courses equal to: $_cursos")
+        }
+    }
 
     fun updateUserId(id: String) {
         Log.d("ProfileViewModel", "updateUserId called with id: $id")
@@ -60,7 +79,33 @@ class ProfileViewModel(
             null
         }
     }
+
+    suspend fun loadCourses(): List<CourseUiState> {
+        val userId = UserSession.userId
+        Log.d("ProfileViewModel", "loadCourses called with userId: $userId")
+
+        return if (userId.isNotBlank()) {
+            val courseNames = studentCoursesRepository.getCourseNamesByTeacher(userId).firstOrNull() ?: emptyList()
+
+            val coursesUiList = courseNames.map { course ->
+                val count = studentCoursesRepository.countStudentsByCourseName(course).firstOrNull() ?: 0
+                CourseUiState(name = course, students = count)
+            }
+            Log.d("ProfileViewModel", "Courses loaded: $coursesUiList")
+            coursesUiList
+        } else {
+            Log.d("ProfileViewModel", "UserId is blank")
+            emptyList()
+        }
+    }
+
+
 }
+
+data class CourseUiState(
+    val name: String,
+    val students: Int
+)
 
 data class ProfileUiState(
     val details: UserBasicInfo = UserBasicInfo(),

@@ -20,10 +20,13 @@ object AppViewModelProvider {
             ItemEntryViewModel(inventoryApplication().container.itemsRepository)
         }
         initializer {
-            LoginViewModel(inventoryApplication().container.guardiansRepository,inventoryApplication().container.teachersRepository)
+            LoginViewModel(inventoryApplication().container.guardiansRepository,
+                inventoryApplication().container.teachersRepository)
         }
         initializer {
-            ProfileViewModel(inventoryApplication().container.guardiansRepository,inventoryApplication().container.teachersRepository)
+            ProfileViewModel(inventoryApplication().container.guardiansRepository,
+                inventoryApplication().container.teachersRepository,
+                inventoryApplication().container.studentCoursesRepository)
         }
 
     }

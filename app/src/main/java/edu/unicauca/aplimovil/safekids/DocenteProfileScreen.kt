@@ -25,7 +25,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.CourseUiState
-import edu.unicauca.aplimovil.safekids.ui.viewmodel.ProfileViewModel
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.TeacherProfileViewModel
 import kotlinx.coroutines.launch
 
 
@@ -33,9 +33,9 @@ import kotlinx.coroutines.launch
 fun DocenteProfileScreen(
     onProfileClick: () -> Unit = {},
     onHomeClick: () -> Unit = {},
-    viewModel: ProfileViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: TeacherProfileViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val coroutineScope = rememberCoroutineScope()
+
     val tipoDocente = "Profesor"
 
     var nombre by remember { mutableStateOf<String?>(null) }
@@ -139,7 +139,6 @@ fun DocenteProfileScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Composable extraído para la lista de cursos
             val courses by viewModel.cursos.collectAsState()
             CourseList(courses)
 

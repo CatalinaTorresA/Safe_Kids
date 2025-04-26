@@ -70,7 +70,7 @@ interface StudentsRepository {
 
 interface StudentGuardiansRepository {
     fun getGuardiansOfStudent(studentId: String): Flow<List<StudentGuardian>>
-    fun getStudentsOfGuardian(guardianId: String): Flow<List<StudentGuardian>>
+    fun getStudentsOfGuardian(guardianId: String): Flow<List<Student>>
     suspend fun insertStudentGuardian(relation: StudentGuardian)
     suspend fun deleteStudentGuardian(relation: StudentGuardian)
 }

@@ -6,25 +6,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import edu.unicauca.aplimovil.safekids.data.Guardian
 import edu.unicauca.aplimovil.safekids.data.GuardiansRepository
-import edu.unicauca.aplimovil.safekids.data.Teacher
 import edu.unicauca.aplimovil.safekids.data.TeachersRepository
 import edu.unicauca.aplimovil.safekids.data.StudentCoursesRepository
 import kotlinx.coroutines.flow.firstOrNull
 import edu.unicauca.aplimovil.safekids.ui.UserSession
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(
+class TeacherProfileViewModel(
     private val guardiansRepository: GuardiansRepository,
     private val teachersRepository: TeachersRepository,
     private val studentCoursesRepository: StudentCoursesRepository
 ) : ViewModel() {
 
-    var profileUiState by mutableStateOf(ProfileUiState())
+    var teacherprofileUiState by mutableStateOf(teacherProfileUiState())
         private set
 
     private val _cursos = MutableStateFlow<List<CourseUiState>>(emptyList())
@@ -35,25 +32,25 @@ class ProfileViewModel(
         viewModelScope.launch {
             val result = loadCourses()
             _cursos.value = result
-            Log.d("ProfileViewModel", "updating courses equal to: $_cursos")
+            Log.d("TeacherProfileViewModel", "updating courses equal to: $_cursos")
         }
     }
 
     fun updateUserId(id: String) {
-        Log.d("ProfileViewModel", "updateUserId called with id: $id")
+        Log.d("TeacherProfileViewModel", "updateUserId called with id: $id")
         UserSession.updateUserId(id)
     }
 
     suspend fun loadGuardian(): UserBasicInfo? {
         val userId = UserSession.userId
-        Log.d("ProfileViewModel", "loadGuardian called with userId: $userId")
+        Log.d("TeacherProfileViewModel", "loadGuardian called with userId: $userId")
         return if (userId.isNotBlank()) {
-            Log.d("ProfileViewModel", "UserId is not blank, querying guardian...")
+            Log.d("TeacherProfileViewModel", "UserId is not blank, querying guardian...")
             guardiansRepository.getGuardianStream(userId).firstOrNull()?.let {
-                Log.d("ProfileViewModel", "Guardian found: ${it.name}")
+                Log.d("TeacherProfileViewModel", "Guardian found: ${it.name}")
                 UserBasicInfo(id = userId, name = it.name)
             } ?: run {
-                Log.d("ProfileViewModel", "No guardian found for userId: $userId")
+                Log.d("TeacherProfileViewModel", "No guardian found for userId: $userId")
                 null
             }
         } else {
@@ -107,7 +104,7 @@ data class CourseUiState(
     val students: Int
 )
 
-data class ProfileUiState(
+data class teacherProfileUiState(
     val details: UserBasicInfo = UserBasicInfo(),
 )
 

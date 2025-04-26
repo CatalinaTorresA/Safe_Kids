@@ -51,7 +51,7 @@ class OfflineStudentsRepository(private val studentDao: StudentDao) : StudentsRe
 class OfflineStudentGuardiansRepository(private val studentGuardianDao: StudentGuardianDao) : StudentGuardiansRepository {
     override fun getGuardiansOfStudent(studentId: String): Flow<List<StudentGuardian>> =
         studentGuardianDao.getGuardiansOfStudent(studentId)
-    override fun getStudentsOfGuardian(guardianId: String): Flow<List<StudentGuardian>> =
+    override fun getStudentsOfGuardian(guardianId: String): Flow<List<Student>> =
         studentGuardianDao.getStudentsOfGuardian(guardianId)
     override suspend fun insertStudentGuardian(relation: StudentGuardian) = studentGuardianDao.insert(relation)
     override suspend fun deleteStudentGuardian(relation: StudentGuardian) = studentGuardianDao.delete(relation)

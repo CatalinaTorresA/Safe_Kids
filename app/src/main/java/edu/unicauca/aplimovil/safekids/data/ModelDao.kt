@@ -117,8 +117,13 @@ interface StudentGuardianDao {
     @Query("SELECT * FROM Student_Guardian WHERE student_id = :studentId")
     fun getGuardiansOfStudent(studentId: String): Flow<List<StudentGuardian>>
 
-    @Query("SELECT * FROM Student_Guardian WHERE guardian_id = :guardianId")
-    fun getStudentsOfGuardian(guardianId: String): Flow<List<StudentGuardian>>
+    @Query("""
+    SELECT Student.student_id, Student.name 
+    FROM Student 
+    INNER JOIN Student_Guardian ON Student.student_id = Student_Guardian.student_id 
+    WHERE Student_Guardian.guardian_id = :guardianId
+""")
+    fun getStudentsOfGuardian(guardianId: String): Flow<List<Student>>
 }
 
 @Dao

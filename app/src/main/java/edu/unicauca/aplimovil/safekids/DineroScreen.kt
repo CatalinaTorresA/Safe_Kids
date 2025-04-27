@@ -27,7 +27,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.GuardianMoneyProfileViewModel
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.MoneyUiState
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.StudentUiState
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun DineroScreen(
@@ -35,6 +38,7 @@ fun DineroScreen(
     onHomeClick: () -> Unit = {},
     viewModel: GuardianMoneyProfileViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
+
     var showDialog by remember { mutableStateOf(false) }
     var showBlockDialog by remember { mutableStateOf(false) }
 
@@ -76,7 +80,7 @@ fun DineroScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         val students by viewModel.students.collectAsState()
-        DineroDropdown(students)
+        DineroDropdown(students, viewModel)
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -121,32 +125,10 @@ fun DineroScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Lista de gastos
-        LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .background(Color(0xFFE0DCDC), RoundedCornerShape(12.dp))
-                .padding(8.dp)
-        ) {
-            items(6) { index ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .padding(vertical = 4.dp)
-                        .background(Color(0xFFB8B0AB), RoundedCornerShape(12.dp)),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    Text(
-                        text = "Gasto ${index + 1}",
-                        modifier = Modifier.padding(start = 16.dp),
-                        color = Color.White
-                    )
-                }
-            }
-        }
+        val moneyList by viewModel.moneyList.collectAsState()
+        MoneyList(moneyList)
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
         // Barra inferior
         Row(
@@ -308,9 +290,11 @@ fun DineroScreen(
 }
 
 @Composable
-fun DineroDropdown(students: List<StudentUiState>) {
+fun DineroDropdown(students: List<StudentUiState>, viewModel: GuardianMoneyProfileViewModel) {
+    val coroutineScope = rememberCoroutineScope()
     var expanded by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf<String?>(null) }
+    var selectedOptionId by remember { mutableStateOf<String?>(null) }
 
     // Se declara un modificador para que el DropdownMenu tenga el mismo ancho que el Text
     val dropdownModifier = Modifier
@@ -351,10 +335,65 @@ fun DineroDropdown(students: List<StudentUiState>) {
                         .clickable {
                             selectedOption = student.name
                             expanded = false
+                            selectedOptionId = student.student_id
+                            coroutineScope.launch {
+                                viewModel.updateStudentId(student.student_id)
+                            }
+
                         }
                         .padding(8.dp)
                 ) {
                     Text(text = student.name, modifier = Modifier.padding(start = 8.dp))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MoneyList(moneyList: List<MoneyUiState>) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(495.dp)
+            .background(Color(0xFFE0DCDC), RoundedCornerShape(12.dp))
+            .padding(8.dp)
+    ) {
+        items(moneyList) { money ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(vertical = 4.dp)
+                    .background(Color(0xFFB8B0AB), RoundedCornerShape(12.dp))
+                    .padding(horizontal = 16.dp), // Para darle padding interno
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Money ID
+                    Text(
+                        text = money.transactionId.toString(),
+                        color = Color.White,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    // Monto
+                    Text(
+                        text = if (money.amount >= 0) "+$${money.amount}" else "-$${-money.amount}",
+                        color = if (money.amount >= 0) Color.Green else Color.Red,
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.Center
+                    )
+
+                    // Timestamp (alineado a la derecha)
+                    Text(
+                        text = money.transactionDate,
+                        color = Color.White,
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.End
+                    )
                 }
             }
         }

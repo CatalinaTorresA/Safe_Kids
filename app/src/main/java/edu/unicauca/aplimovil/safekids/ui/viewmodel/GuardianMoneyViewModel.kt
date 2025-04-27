@@ -39,6 +39,12 @@ class GuardianMoneyProfileViewModel(
         }
     }
 
+    fun updateStudentId(newId: String) {
+        viewModelScope.launch {
+            _moneyList.value = loadMoneyForStudent(newId) // Actualiza la lista de dinero para el estudiante
+        }
+    }
+
     suspend fun loadStudents(): List<StudentUiState> {
         val userId = UserSession.userId
         Log.d("ProfileViewModel", "loadStudentsByCourse called with userId: $userId")

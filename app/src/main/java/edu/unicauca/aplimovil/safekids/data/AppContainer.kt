@@ -14,6 +14,7 @@ interface AppContainer {
     val studentsRepository: StudentsRepository
     val studentGuardiansRepository: StudentGuardiansRepository
     val studentCoursesRepository: StudentCoursesRepository
+    val moneyRepository: MoneyRepository
 }
 
 /**
@@ -49,5 +50,9 @@ class AppDataContainer(private val context: Context) : AppContainer {
 
     override val studentCoursesRepository: StudentCoursesRepository by lazy {
         OfflineStudentCoursesRepository(InventoryDatabase.getDatabase(context).studentCourseDao())
+    }
+
+    override val moneyRepository: MoneyRepository by lazy {
+        OfflineMoneyRepository(InventoryDatabase.getDatabase(context).moneyDao())
     }
 }

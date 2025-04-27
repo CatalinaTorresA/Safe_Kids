@@ -84,3 +84,13 @@ interface StudentCoursesRepository {
     fun countStudentsByCourseName(courseName: String): Flow<Int>
 }
 
+interface MoneyRepository {
+    fun getAllMoneyForStudent(studentId: String): Flow<List<Money>>
+    fun getTotalMoneyForStudent(studentId: String): Flow<Double?>
+    suspend fun insertMoneyByTeacher(money: Money)
+    suspend fun insertMoneyByGuardian(money: Money)
+    suspend fun lockMoneyForStudent(studentId: String)
+    suspend fun unlockMoneyForStudent(studentId: String)
+}
+
+

@@ -69,3 +69,31 @@ class OfflineStudentCoursesRepository(private val studentCourseDao: StudentCours
     override fun countStudentsByCourseName(courseName: String): Flow<Int> =
         studentCourseDao.countStudentsByCourseName(courseName)
 }
+
+class OfflineMoneyRepository(private val moneyDao: MoneyDao) : MoneyRepository {
+
+    // Obtener todas las transacciones de dinero de un estudiante
+    override fun getAllMoneyForStudent(studentId: String): Flow<List<Money>> =
+        moneyDao.getAllMoneyForStudent(studentId)
+
+    // Obtener el balance total de un estudiante
+    override fun getTotalMoneyForStudent(studentId: String): Flow<Double?> =
+        moneyDao.getTotalMoneyForStudent(studentId)
+
+    // Insertar dinero a través de un Teacher
+    override suspend fun insertMoneyByTeacher(money: Money) =
+        moneyDao.insertMoneyByTeacher(money)
+
+    // Insertar dinero a través de un Guardian
+    override suspend fun insertMoneyByGuardian(money: Money) =
+        moneyDao.insertMoneyByGuardian(money)
+
+    // Bloquear el dinero del estudiante
+    override suspend fun lockMoneyForStudent(studentId: String) =
+        moneyDao.lockMoneyForStudent(studentId)
+
+    // Desbloquear el dinero del estudiante
+    override suspend fun unlockMoneyForStudent(studentId: String) =
+        moneyDao.unlockMoneyForStudent(studentId)
+}
+

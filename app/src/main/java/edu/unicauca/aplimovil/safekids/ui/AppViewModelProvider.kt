@@ -6,6 +6,8 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import edu.unicauca.aplimovil.safekids.InventoryApplication
+import edu.unicauca.aplimovil.safekids.data.MoneyRepository
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.GuardianMoneyProfileViewModel
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.GuardianProfileViewModel
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.ItemEntryViewModel
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.LoginViewModel
@@ -32,6 +34,11 @@ object AppViewModelProvider {
         initializer {
             GuardianProfileViewModel(inventoryApplication().container.guardiansRepository,
                 inventoryApplication().container.studentGuardiansRepository)
+        }
+        initializer {
+            GuardianMoneyProfileViewModel(inventoryApplication().container.guardiansRepository,
+                inventoryApplication().container.studentGuardiansRepository,
+                inventoryApplication().container.moneyRepository)
         }
 
     }

@@ -153,6 +153,32 @@ interface StudentCourseDao {
     )
 """)
     fun countStudentsByCourseName(courseName: String): Flow<Int>
+}
 
+@Dao
+interface MoneyDao {
 
+    // Insertar dinero a través de un Teacher
+    @Insert
+    suspend fun insertMoneyByTeacher(money: Money)
+
+    // Insertar dinero a través de un Guardian
+    @Insert
+    suspend fun insertMoneyByGuardian(money: Money)
+
+    // Obtener todos los registros de transacciones por student_id
+    @Query("SELECT * FROM money WHERE student_id = :studentId")
+    fun getAllMoneyForStudent(studentId: String): Flow<List<Money>>
+
+    // Obtener el balance total de un estudiante (suma de todas las transacciones)
+    @Query("SELECT SUM(amount) FROM money WHERE student_id = :studentId")
+    fun getTotalMoneyForStudent(studentId: String): Flow<Double?>
+
+    // Bloquear el dinero del estudiante (cambiar el estado de is_locked)
+    @Query("UPDATE money SET is_locked = 1 WHERE student_id = :studentId")
+    suspend fun lockMoneyForStudent(studentId: String)
+
+    // Desbloquear el dinero del estudiante (cambiar el estado de is_locked)
+    @Query("UPDATE money SET is_locked = 0 WHERE student_id = :studentId")
+    suspend fun unlockMoneyForStudent(studentId: String)
 }

@@ -16,9 +16,10 @@ import androidx.room.RoomDatabase
         Guardian::class,
         Student::class,
         StudentGuardian::class,
-        StudentCourse::class
+        StudentCourse::class,
+        Money::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class InventoryDatabase : RoomDatabase() {
@@ -30,6 +31,7 @@ abstract class InventoryDatabase : RoomDatabase() {
     abstract fun studentDao(): StudentDao
     abstract fun studentGuardianDao(): StudentGuardianDao
     abstract fun studentCourseDao(): StudentCourseDao
+    abstract fun moneyDao(): MoneyDao
 
     companion object {
         @Volatile
@@ -39,6 +41,7 @@ abstract class InventoryDatabase : RoomDatabase() {
             // if the Instance is not null, return it, otherwise create a new database instance.
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(context, InventoryDatabase::class.java, "item_database")
+                    .fallbackToDestructiveMigration()
                     .build()
                     .also { Instance = it }
             }

@@ -24,11 +24,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.GuardianMoneyProfileViewModel
+import edu.unicauca.aplimovil.safekids.ui.viewmodel.StudentUiState
 
 @Composable
 fun DineroScreen(
     onProfileClick: () -> Unit = {},
-    onHomeClick: () -> Unit = {}
+    onHomeClick: () -> Unit = {},
+    viewModel: GuardianMoneyProfileViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     var showDialog by remember { mutableStateOf(false) }
     var showBlockDialog by remember { mutableStateOf(false) }
@@ -70,18 +75,8 @@ fun DineroScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Sección DINERO
-        Text(
-            text = "DINERO",
-            color = Color.White,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFF202B7F), RoundedCornerShape(12.dp))
-                .padding(vertical = 8.dp),
-            textAlign = TextAlign.Center
-        )
+        val students by viewModel.students.collectAsState()
+        DineroDropdown(students)
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -311,3 +306,58 @@ fun DineroScreen(
     }
 
 }
+
+@Composable
+fun DineroDropdown(students: List<StudentUiState>) {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOption by remember { mutableStateOf<String?>(null) }
+
+    // Se declara un modificador para que el DropdownMenu tenga el mismo ancho que el Text
+    val dropdownModifier = Modifier
+        .fillMaxWidth() // Esto asegura que el DropdownMenu tenga el mismo ancho que el texto
+        .background(Color.White)
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.TopStart)
+    ) {
+        // Aquí la Text de "DINERO" con el mismo ancho del contenedor
+        Text(
+            text = selectedOption ?: "Seleccione un Estudiante",
+            color = Color.White,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFF202B7F), RoundedCornerShape(12.dp))
+                .clickable { expanded = true }
+                .padding(vertical = 8.dp),
+            textAlign = TextAlign.Center
+        )
+
+        // DropdownMenu con el mismo ancho que la Text
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = dropdownModifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        ) {
+            students.forEach { student ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            selectedOption = student.name
+                            expanded = false
+                        }
+                        .padding(8.dp)
+                ) {
+                    Text(text = student.name, modifier = Modifier.padding(start = 8.dp))
+                }
+            }
+        }
+    }
+}
+

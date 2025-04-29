@@ -6,12 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.Block
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -29,7 +26,7 @@ import edu.unicauca.aplimovil.safekids.ui.AppViewModelProvider
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.GuardianMoneyProfileViewModel
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.MoneyUiState
 import edu.unicauca.aplimovil.safekids.ui.viewmodel.StudentUiState
-import kotlinx.coroutines.coroutineScope
+import edu.unicauca.aplimovil.safekids.ui.components.BottomNavigationBar
 import kotlinx.coroutines.launch
 
 @Composable
@@ -131,51 +128,7 @@ fun DineroScreen(
         Spacer(modifier = Modifier.weight(1f))
 
         // Barra inferior
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFF8D8782), shape = RoundedCornerShape(12.dp))
-                .padding(vertical = 12.dp, horizontal = 24.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(
-                onClick = onHomeClick,
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                contentPadding = PaddingValues(0.dp),
-                elevation = ButtonDefaults.buttonElevation(0.dp),
-                modifier = Modifier.weight(1f)
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Red)
-                    Text("Home", color = Color.Red)
-                }
-            }
-
-            Button(
-                onClick = onProfileClick,
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                contentPadding = PaddingValues(0.dp),
-                elevation = ButtonDefaults.buttonElevation(0.dp),
-                modifier = Modifier.weight(1f)
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(
-                        painter = painterResource(id = R.drawable.perfil),
-                        contentDescription = "Profile Pic",
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(CircleShape)
-                    )
-                    Text(
-                        text = "Profile",
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        textDecoration = TextDecoration.Underline
-                    )
-                }
-            }
-        }
+        BottomNavigationBar(onHomeClick = onHomeClick, onProfileClick = onProfileClick)
     }
 
     // 🟢 Diálogo para recargar con método PSE

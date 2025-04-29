@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.firstOrNull
 import edu.unicauca.aplimovil.safekids.ui.UserSession
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class GuardianMoneyProfileViewModel(

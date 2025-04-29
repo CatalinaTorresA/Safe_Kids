@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "27776068018",
+    "project_id": "safe-kids-7fbc3",
+    "storage_bucket": "safe-kids-7fbc3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27776068018:android:3e18ab22c5296d4d09dcab",
+        "android_client_info": {
+          "package_name": "edu.unicauca.aplimovil.safekids"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJYrNrPhisVkPXSbXMf5yyZgOJtrHGJXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

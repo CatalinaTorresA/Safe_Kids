@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -44,10 +45,17 @@ dependencies {
     val nav_version = "2.8.9"
     val room_version = "2.7.0"
 
-//Room
+    // Room
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+
+    // Firebase Firestore
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Otros
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -56,9 +64,17 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation ("androidx.compose.material:material:1.5.0")
+    implementation("androidx.compose.material:material:1.5.0")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    // Dependencia para ViewModel y LiveData
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+    // Dependencia para coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+
+    // Pruebas
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,5 +82,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
 }

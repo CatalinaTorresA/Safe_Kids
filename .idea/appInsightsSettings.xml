@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="edu.unicauca.aplimovil.safekids" />
+                  <option name="mobileSdkAppId" value="1:27776068018:android:3e18ab22c5296d4d09dcab" />
+                  <option name="projectId" value="safe-kids-7fbc3" />
+                  <option name="projectNumber" value="27776068018" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

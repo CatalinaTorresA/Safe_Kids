@@ -24,6 +24,9 @@ interface ItemDao {
 
     @Query("SELECT * from items ORDER BY name ASC")
     fun getAllItems(): Flow<List<Item>>
+
+    @Query("SELECT * FROM items ORDER BY name ASC")
+    fun getAllItemsStream(): Flow<List<Item>>
 }
 
 // Needed DAOs from here on
